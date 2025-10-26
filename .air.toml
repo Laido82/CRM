@@ -1,0 +1,70 @@
+# --- AIR CONFIGURATION FILE ---
+# Rebuild on ANY file change in ANY subdirectory
+
+root = "."
+tmp_dir = "tmp"
+testdata_dir = "testdata"
+
+[build]
+  # Output binary
+  bin = "tmp/main"
+
+  # Build command (adjust entry if needed)
+  cmd = "go build -o tmp/main ./cmd/app.go"
+
+  # Rebuild delay (milliseconds)
+  delay = 300
+
+  # ✅ Include ALL directories recursively
+  include_dir = ["."]
+
+  # ✅ Include ALL file types
+  include_ext = ["*"]
+
+  # 🚫 Exclude only temporary/system dirs
+  exclude_dir = [
+    "tmp",
+    "vendor",
+    "testdata",
+    ".git",
+    ".idea",
+    ".vscode",
+    "node_modules"
+  ]
+
+  # Skip test files
+  exclude_regex = ["_test.go"]
+
+  # Auto restart after rebuild
+  rerun = true
+  rerun_delay = 300
+
+  # Don’t stop on error
+  stop_on_error = false
+
+  # Write build errors to file
+  log = "build-errors.log"
+
+  # Use native FS watcher (not polling)
+  poll = false
+
+[color]
+  build = "yellow"
+  main = "magenta"
+  runner = "green"
+  watcher = "cyan"
+
+[log]
+  time = true
+  silent = false
+  main_only = false
+
+[screen]
+  clear_on_rebuild = true
+  keep_scroll = false
+
+[misc]
+  clean_on_exit = true
+
+[proxy]
+  enabled = false
