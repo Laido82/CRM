@@ -44,7 +44,7 @@ func Logout(app *fiber.App, templates *template.Template) {
 					box-sizing: border-box;
 				}
 				body {
-					background-color: #0ea5e9;
+					background-color: #0f172b;
 					min-height: 100vh;
 					display: flex;
 					align-items: center;
