@@ -1,2 +1,3 @@
 internal/database/*
 internal/backups/*
+cmd/temp/*
