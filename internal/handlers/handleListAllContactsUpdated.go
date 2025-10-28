@@ -2,14 +2,14 @@ package handlers
 
 import (
 	"database/sql"
-	"html/template"
 	"log"
+	"main/components"
 	"main/internal/controllers"
 
 	"github.com/gofiber/fiber/v2"
 )
 
-func ListAllContactsUpdated(app *fiber.App, templates *template.Template, db *sql.DB) {
+func ListAllContactsUpdated(app *fiber.App,  db *sql.DB) {
 	app.Get("/listAllContactsUpdated", func(c *fiber.Ctx) error {
 		// Set content type to HTML
 		c.Set("Content-Type", "text/html")
@@ -21,9 +21,9 @@ func ListAllContactsUpdated(app *fiber.App, templates *template.Template, db *sq
 			return fiber.NewError(fiber.StatusInternalServerError, "Internal Server Error")
 		}
 
-		// Execute template with contacts data
-		if err := templates.ExecuteTemplate(c, "listAllContactsUpdated.html", contacts); err != nil {
-			log.Printf("Error executing template: %v", err)
+		component := components.ListAllContactsUpdated(contacts)
+		if err := component.Render(c.Context(), c); err != nil {
+			log.Printf("Error rendering template: %v", err)
 			return fiber.NewError(fiber.StatusInternalServerError, "Internal Server Error")
 		}
 		return nil

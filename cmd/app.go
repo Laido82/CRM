@@ -40,8 +40,6 @@ func main() {
 	if host == "" || port == "" {
 		log.Fatal("HOST or PORT environment variables are not set")
 	}
-	// Parse all templates
-	templates := handlers.ParseAllTemplates()
 
 	// Initialize Fiber app
 	app := fiber.New()
@@ -54,16 +52,16 @@ func main() {
 	app.Static("/static", filepathAbs)
 
 	// Define route handlers
-	handlers.Menu(app, templates)
-	handlers.AddContact(app, templates, db)
-	handlers.UpdateContact(app, templates, db)
-	handlers.DeleteContact(app, templates, db)
-	handlers.HandlerServices(app, templates)
-	handlers.About(app, templates)
-	handlers.GetAllContacts(app, templates, db)
-	handlers.ListSearchedContacts(app, templates, db)
-	handlers.ListAllContactsUpdated(app, templates, db)
-	handlers.Logout(app, templates)
+	handlers.Menu(app)
+	handlers.AddContact(app, db)
+	handlers.UpdateContact(app, db)
+	handlers.DeleteContact(app, db)
+	handlers.Services(app)
+	handlers.About(app)
+	handlers.GetAllContacts(app, db)
+	handlers.ListSearchedContacts(app, db)
+	handlers.ListAllContactsUpdated(app, db)
+	handlers.Logout(app)
 
 	// Start the server
 	address := ":" + port

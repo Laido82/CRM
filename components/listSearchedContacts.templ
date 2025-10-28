@@ -1,0 +1,100 @@
+package components
+
+import (
+	"main/internal/models"
+	"strconv"
+)
+
+templ ListSearchedContacts(contacts []models.Contact) {
+	<!-- ✅ CONTACTS TABLE -->
+	<div
+		class="bg-gray-800 rounded-lg shadow-xl overflow-hidden border border-gray-700"
+	>
+		<div
+			id="list-contacts"
+			hx-trigger="contactsUpdated from:body"
+			hx-get="/listAllContactsUpdated"
+			hx-swap="innerHTML"
+		>
+			<div class="overflow-y-auto max-h-[700px]">
+				<table class="min-w-full divide-y divide-gray-700">
+					<thead class="bg-gray-900 sticky top-0">
+						<tr>
+							<th
+								class="px-4 py-3 text-center text-lg font-medium text-gray-300 uppercase"
+							>
+								ID
+							</th>
+							<th
+								class="px-4 py-3 text-center text-lg font-medium text-gray-300 uppercase"
+							>
+								First Name
+							</th>
+							<th
+								class="px-4 py-3 text-center text-lg font-medium text-gray-300 uppercase"
+							>
+								Last Name
+							</th>
+							<th
+								class="px-4 py-3 text-center text-lg font-medium text-gray-300 uppercase"
+							>
+								Email
+							</th>
+							<th
+								class="px-4 py-3 text-center text-lg font-medium text-gray-300 uppercase"
+							>
+								Age
+							</th>
+							<th
+								class="px-4 py-3 text-center text-lg font-medium text-gray-300 uppercase"
+							>
+								Actions
+							</th>
+						</tr>
+					</thead>
+					<tbody class="bg-gray-800 divide-y divide-gray-700">
+						for _,contact := range contacts {
+							<tr class="hover:bg-gray-700 transition duration-150">
+								<td class="px-6 py-3 text-center text-gray-300">{ contact.ID }</td>
+								<td class="px-6 py-3 text-center text-gray-300">{ contact.FirstName }</td>
+								<td class="px-6 py-3 text-center text-gray-300">{ contact.LastName }</td>
+								<td class="px-6 py-3 text-center text-gray-300">{ contact.Email }</td>
+								<td class="px-6 py-3 text-center text-gray-300">{ contact.Age }</td>
+								<td class="px-6 py-3 text-center space-x-2">
+									<!-- 🔵 EDIT BUTTON -->
+									<button
+										hx-post="/updateContact"
+										hx-include="#contact-form"
+										hx-vals={ `{"id":"` + strconv.FormatUint(contact.ID, 10) + `"}` }
+										hx-confirm={ "⚠️ Are you sure you want to update " + strconv.FormatUint(contact.ID, 10) + " - " + contact.FirstName + " " + contact.LastName + "?" }
+										hx-target="#result"
+										hx-on::after-request="htmx.trigger('body', 'contactsUpdated')"
+										hx-on::after-request="htmx.trigger('#contact-form', 'formReset')"
+										class="px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 shadow-md"
+										title="Fill in the fields above that you want to update, then click Edit"
+									>
+										Edit
+									</button>
+									<!-- 🔴 DELETE BUTTON -->
+									<button
+										hx-post="/deleteContact"
+										hx-swap="innerHTML"
+										hx-target="#result"
+										hx-confirm={ "⚠️ Are you sure you want to delete " + strconv.FormatUint(contact.ID, 10) + " - " + contact.FirstName + " " + contact.LastName + "?" }
+										hx-vals={ `{"id":"` + strconv.FormatUint(contact.ID, 10) + `"}` }
+										hx-on::after-request="htmx.trigger('body', 'contactsUpdated')"
+										hx-on::after-request="htmx.trigger('#contact-form', 'formReset')"
+										class="px-3 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700 transition duration-200 shadow-md"
+									>
+										Delete
+									</button>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div id="result"></div>
+	</div>
+}

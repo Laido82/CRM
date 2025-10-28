@@ -1,23 +1,24 @@
 package handlers
 
 import (
-	"html/template"
+	"main/components"
 	"main/internal/controllers"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 // HandleLogout renders the logout page and handles logout action
-func Logout(app *fiber.App, templates *template.Template) {
+func Logout(app *fiber.App) {
 
 	app.Get("/logout", func(c *fiber.Ctx) error {
 		c.Set("content-type", "text/html")
-		if err := templates.ExecuteTemplate(c, "logout.html", nil); err != nil {
+		component := components.Logout()
+		if err := component.Render(c.Context(), c); err != nil {
 			return c.Status(fiber.StatusInternalServerError).SendString(`
 				<div id="result" 
 					 class="fixed bottom-5 right-5 bg-red-600 text-white px-4 py-2 rounded-lg shadow-lg popup" 
 					 hx-swap-oob="true">
-					✗ Failed to load logout page
+					✗ Failed to rendering logout page
 				</div>
 			`)
 		}

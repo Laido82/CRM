@@ -2,26 +2,32 @@ package handlers
 
 import (
 	"database/sql"
-	"html/template"
 	"log"
+	"main/components"
 	"main/internal/controllers"
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 )
 
-func DeleteContact(app *fiber.App, templates *template.Template, db *sql.DB) {
+func DeleteContact(app *fiber.App, db *sql.DB) {
 	// Handle GET request - serve the form
 	app.Get("/deleteContact", func(c *fiber.Ctx) error {
 		c.Set("Content-Type", "text/html")
-
-		if err := templates.ExecuteTemplate(c, "contactsForm.html", nil); err != nil {
+		// Get contacts data
+		contacts, err := controllers.GetAllContacts(db)
+		if err != nil {
+			log.Printf("Error getting contacts: %v", err)
+			return fiber.NewError(fiber.StatusInternalServerError, "Internal Server Error")
+		}
+		component := components.ContactsForm(contacts)
+		if err := component.Render(c.Context(), c); err != nil {
 			log.Printf("Error executing template: %v", err)
 			return c.Status(fiber.StatusInternalServerError).SendString(`
 					<div id="result" 
 						 class="fixed bottom-5 right-5 bg-red-600 text-white px-4 py-2 rounded-lg shadow-lg popup" 
 						 hx-swap-oob="true">
-					 ❌ Error loading page
+					 ❌ Error rendering page
 					</div>
 				`)
 		}

@@ -1,18 +1,22 @@
 package handlers
 
 import (
-	"github.com/gofiber/fiber/v2"
-	"html/template"
 	"log"
+	"main/components"
+
+	"github.com/gofiber/fiber/v2"
 )
 
-func About(app *fiber.App, templates *template.Template) {
+func About(app *fiber.App) {
 	app.Get("/about", func(c *fiber.Ctx) error {
 		c.Set("Content-Type", "text/html")
-		if err := templates.ExecuteTemplate(c, "about.html", nil); err != nil {
-			log.Printf("Error executing template: %v", err)
+		component := components.About()
+
+		if err := component.Render(c.Context(), c); err != nil {
+			log.Printf("Error rendering component: %v", err)
 			return fiber.NewError(fiber.StatusInternalServerError, "Internal Server Error")
 		}
 		return nil
 	})
+
 }

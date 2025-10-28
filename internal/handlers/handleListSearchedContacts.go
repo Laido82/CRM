@@ -2,7 +2,8 @@ package handlers
 
 import (
 	"database/sql"
-	"html/template"
+	"log"
+	"main/components"
 	"main/internal/controllers"
 	"main/internal/models"
 	"strings"
@@ -10,17 +11,23 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func ListSearchedContacts(app *fiber.App, template *template.Template, db *sql.DB) {
+func ListSearchedContacts(app *fiber.App, db *sql.DB) {
 	// Handler GET request - serve the form
 	app.Get("/listSearchedContacts", func(c *fiber.Ctx) error {
 		c.Set("Content-Type", "text/html")
-
-		if err := template.ExecuteTemplate(c, "listSearchedContacts.html", nil); err != nil {
+		// Get contacts data
+		contacts, err := controllers.GetAllContacts(db)
+		if err != nil {
+			log.Printf("Error getting contacts: %v", err)
+			return fiber.NewError(fiber.StatusInternalServerError, "Internal Server Error")
+		}
+		component := components.ListSearchedContacts(contacts)
+		if err := component.Render(c.Context(), c); err != nil {
 			return c.Status(fiber.StatusInternalServerError).SendString(`
 					<div id="result" 
 						 class="fixed bottom-5 right-5 bg-red-600 text-white px-4 py-2 rounded-lg shadow-lg popup" 
 						 hx-swap-oob="true">
-					 ❌ Error loading contacts
+					 ❌ Error rendering contacts
 					</div>
 				`)
 		}
@@ -61,12 +68,13 @@ func ListSearchedContacts(app *fiber.App, template *template.Template, db *sql.D
 
 		// Render the results
 		c.Set("Content-Type", "text/html")
-		if err := template.ExecuteTemplate(c, "listSearchedContacts.html", contacts); err != nil {
+		component := components.ListSearchedContacts(contacts)
+		if err := component.Render(c.Context(), c); err != nil {
 			return c.Status(fiber.StatusInternalServerError).SendString(`
 					<div id="result" 
 						 class="fixed bottom-5 right-5 bg-red-600 text-white px-4 py-2 rounded-lg shadow-lg popup" 
 						 hx-swap-oob="true">
-					 ❌ Error loading contacts
+					 ❌ Error rendering contacts
 					</div>
 				`)
 		}

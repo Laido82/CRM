@@ -1,0 +1,69 @@
+package components
+
+templ About() {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<title>About</title>
+			<link rel="icon" type="image/x-icon" href="/static/icons/about.png"/>
+			<link rel="stylesheet" href="/static/css/output.css"/>
+		</head>
+		<body
+			class="bg-linear-to-br from-slate-950 via-slate-900 to-slate-950 min-h-screen flex items-center justify-center p-6"
+			style="font-family: 'Inter', sans-serif"
+		>
+			<a
+				href="/"
+				class="fixed top-6 left-6 bg-linear-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/20 hover:scale-105 flex items-center gap-2 backdrop-blur-sm"
+			>
+				<img src="/static/icons/home.png" alt="Home" class="w-5 h-5"/>
+				Home
+			</a>
+			<div
+				class="max-w-3xl w-full bg-linear-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-xl rounded-3xl shadow-2xl shadow-black/50 p-10 border border-slate-700/50 transform transition-all duration-700 hover:scale-[1.02]"
+			>
+				<h1
+					class="text-5xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-violet-400 to-purple-400 mb-8 tracking-tight"
+				>
+					About This Application
+				</h1>
+				<div class="space-y-6 text-slate-300">
+					<p
+						class="text-lg leading-relaxed font-light hover:text-white transition-all duration-300 transform hover:translate-x-2"
+					>
+						This is a simple web application built with Go and the Fiber
+						framework. It displays a list of employees and their details.
+					</p>
+					<div class="mt-10 pt-8 border-t border-slate-700/50 space-y-4 transition-all duration-500">
+						<p class="text-lg font-light hover:text-white transition-all duration-300 transform hover:translate-x-2 group">
+							<span
+								class="font-semibold text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-cyan-400 group-hover:from-blue-300 group-hover:to-cyan-300 transition-all duration-300"
+							>Author:</span>
+							Tebabkha Elaid
+						</p>
+						<p class="text-lg font-light hover:text-white transition-all duration-300 transform hover:translate-x-2 group">
+							<span
+								class="font-semibold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-purple-400 group-hover:from-violet-300 group-hover:to-purple-300 transition-all duration-300"
+							>Mobile:</span>
+							0553 62 30 64
+						</p>
+						<p class="text-lg font-light hover:text-white transition-all duration-300 transform hover:translate-x-2 group">
+							<span
+								class="font-semibold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-purple-400 group-hover:from-violet-300 group-hover:to-purple-300 transition-all duration-300"
+							>Email:</span>
+							tebabkhaelaid@gmail.com
+						</p>
+						<p class="text-lg font-light hover:text-white transition-all duration-300 transform hover:translate-x-2 group">
+							<span
+								class="font-semibold text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-purple-400 group-hover:from-violet-300 group-hover:to-purple-300 transition-all duration-300"
+							>Version:</span>
+							1.0.0
+						</p>
+					</div>
+				</div>
+			</div>
+		</body>
+	</html>
+}

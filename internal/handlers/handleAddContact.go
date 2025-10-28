@@ -2,8 +2,8 @@ package handlers
 
 import (
 	"database/sql"
-	"html/template"
 	"log"
+	"main/components"
 	"main/internal/controllers"
 	"main/internal/validators"
 	"strings"
@@ -13,18 +13,24 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func AddContact(app *fiber.App, templates *template.Template, db *sql.DB) {
+func AddContact(app *fiber.App, db *sql.DB) {
 	// Handle GET request - serve the form
 	app.Get("/addContact", func(c *fiber.Ctx) error {
 		c.Set("Content-Type", "text/html")
-
-		if err := templates.ExecuteTemplate(c, "contactsForm.html", nil); err != nil {
+		// Get contacts data
+		contacts, err := controllers.GetAllContacts(db)
+		if err != nil {
+			log.Printf("Error getting contacts: %v", err)
+			return fiber.NewError(fiber.StatusInternalServerError, "Internal Server Error")
+		}
+		component := components.ContactsForm(contacts)
+		if err := component.Render(c.Context(), c); err != nil {
 			log.Printf("Error executing template: %v", err)
 			return c.SendString(`
 					<div id="result" 
 						 class="fixed bottom-5 right-5 bg-red-600 text-white px-4 py-2 rounded-lg shadow-lg popup" 
 						 hx-swap-oob="true">
-					 ❌ Failed to load page. Please try again.
+					 ❌ Failed to render page. Please try again.
 					</div>
 				`)
 		}
