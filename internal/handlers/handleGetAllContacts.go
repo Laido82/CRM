@@ -9,7 +9,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func GetAllContacts(app *fiber.App, db *sql.DB) {
+func GetAllContacts(title, iconPath string, app *fiber.App, db *sql.DB) {
 	app.Get("/contacts", func(c *fiber.Ctx) error {
 		// Set content type to HTML
 		c.Set("Content-Type", "text/html")
@@ -21,7 +21,7 @@ func GetAllContacts(app *fiber.App, db *sql.DB) {
 			return fiber.NewError(fiber.StatusInternalServerError, "Internal Server Error")
 		}
 
-		component := components.ContactsForm(contacts)
+		component := components.ContactsForm(title, iconPath, contacts)
 		if err := component.Render(c.Context(), c); err != nil {
 			log.Printf("Error rendering template: %v", err)
 			return fiber.NewError(fiber.StatusInternalServerError, "Internal Server Error")

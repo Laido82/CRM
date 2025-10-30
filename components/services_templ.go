@@ -8,7 +8,7 @@ package components
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-func Services() templ.Component {
+func Services(title, iconPath string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -29,7 +29,11 @@ func Services() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<!doctype html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Services</title><link href=\"/static/css/output.css\" rel=\"stylesheet\"><link href=\"/static/icons/services.png\" rel=\"icon\" type=\"image/x-icon\"></head><body class=\"bg-linear-to-br from-slate-950 via-slate-900 to-slate-950 min-h-screen flex items-center justify-center p-6\" style=\"font-family: 'Inter', sans-serif\"><a href=\"/\" class=\"fixed top-6 left-6 bg-linear-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/20 hover:scale-105 flex items-center gap-2 backdrop-blur-sm\"><img src=\"/static/icons/home.png\" alt=\"Home\" class=\"w-5 h-5\"> Home</a></body></html>")
+		templ_7745c5c3_Err = Base(title, iconPath).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<body class=\"bg-linear-to-br from-slate-950 via-slate-900 to-slate-950 min-h-screen flex items-center justify-center p-6\" style=\"font-family: 'Inter', sans-serif\"><a href=\"/\" class=\"fixed top-6 left-6 bg-linear-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/20 hover:scale-105 flex items-center gap-2 backdrop-blur-sm\"><img src=\"/static/icons/home.png\" alt=\"Home\" class=\"w-5 h-5\"> Home</a></body>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

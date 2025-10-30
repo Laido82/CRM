@@ -9,9 +9,8 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import "main/internal/models"
-import "strconv"
 
-func ContactsForm(contacts []models.Contact) templ.Component {
+func ContactsForm(title, iconPath string, contacts []models.Contact) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -32,134 +31,19 @@ func ContactsForm(contacts []models.Contact) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<!doctype html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Contacts</title><link href=\"/static/css/output.css\" rel=\"stylesheet\"><link rel=\"icon\" type=\"image/x-icon\" href=\"/static/icons/contacts.png\"><script src=\"/static/htmx/htmx.js\"></script></head><body class=\"bg-gray-900 min-h-screen py-8 px-4\"><a href=\"/\" class=\"fixed top-6 left-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 flex items-center gap-2\"><img src=\"/static/icons/home.png\" alt=\"Home\" class=\"w-6 h-6\"> Home</a><div class=\"max-w-6xl mx-auto\"><h1 class=\"text-4xl font-bold text-white text-center mb-8\">System Contacts Management</h1><!-- ✅ ADD CONTACT FORM --><div class=\"bg-gray-800 rounded-lg shadow-xl p-6 mb-6 border border-gray-700\"><form hx-post=\"/addContact\" hx-indicator=\"#spinner-add\" class=\"space-y-4\" id=\"contact-form\" hx-on::after-request=\"this.reset()\"><div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\"><input type=\"text\" name=\"firstName\" placeholder=\"First Name\" required class=\"px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-center text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent\"> <input type=\"text\" name=\"lastName\" placeholder=\"Last Name\" required class=\"px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-center text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent\"> <input type=\"email\" name=\"email\" placeholder=\"Email\" required class=\"px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-center text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent\"> <input type=\"number\" name=\"age\" min=\"18\" max=\"120\" placeholder=\"Age\" required class=\"px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-center text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent\"></div><button type=\"button\" hx-post=\"/addContact\" hx-swap=\"innerHTML\" hx-target=\"#result\" hx-on::after-request=\"htmx.trigger('body', 'contactsUpdated')\" class=\"w-full md:w-auto px-6 py-2 bg-green-600 text-white font-semibold text-center rounded-lg hover:bg-green-700 transition duration-200 mx-auto block shadow-lg\">Add Contact</button><div id=\"spinner-add\" class=\"htmx-indicator text-blue-400 font-medium\">Processing...</div></form></div><div class=\"text-center text-gray-400 mb-4\"><input hx-post=\"/searchedContacts\" hx-trigger=\"keyup changed delay:500ms\" type=\"text\" name=\"searchTerm\" hx-target=\"#list-contacts\" class=\"text-gray-300 bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-center w-full md:w-1/2 lg:w-1/3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent\" placeholder=\"Search Contacts...\"></div><!-- ✅ CONTACTS TABLE --><div class=\"bg-gray-800 rounded-lg shadow-xl overflow-hidden border border-gray-700\"><div id=\"list-contacts\" hx-get=\"/listAllContactsUpdated\" hx-trigger=\"contactsUpdated from:body\" hx-swap=\"innerHTML\"><div class=\"overflow-y-auto max-h-[700px]\"><table class=\"min-w-full divide-y divide-gray-700\"><thead class=\"bg-gray-900 sticky top-0\"><tr><th class=\"px-4 py-3 text-center text-lg font-medium text-gray-300 uppercase\">ID</th><th class=\"px-4 py-3 text-center text-lg font-medium text-gray-300 uppercase\">First Name</th><th class=\"px-4 py-3 text-center text-lg font-medium text-gray-300 uppercase\">Last Name</th><th class=\"px-4 py-3 text-center text-lg font-medium text-gray-300 uppercase\">Email</th><th class=\"px-4 py-3 text-center text-lg font-medium text-gray-300 uppercase\">Age</th><th class=\"px-4 py-3 text-center text-lg font-medium text-gray-300 uppercase\">Actions</th></tr></thead> <tbody class=\"bg-gray-800 divide-y divide-gray-700\">")
+		templ_7745c5c3_Err = Base(title, iconPath).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		for _, contact := range contacts {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<tr class=\"hover:bg-gray-700 transition duration-150\"><td class=\"px-6 py-3 text-center text-gray-300\">")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var2 string
-			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(contact.ID)
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/contactsForm.templ`, Line: 131, Col: 71}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "</td><td class=\"px-6 py-3 text-center text-gray-300\">")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var3 string
-			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(contact.FirstName)
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/contactsForm.templ`, Line: 133, Col: 31}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "</td><td class=\"px-6 py-3 text-center text-gray-300\">")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var4 string
-			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(contact.LastName)
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/contactsForm.templ`, Line: 136, Col: 30}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</td><td class=\"px-6 py-3 text-center text-gray-300\">")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var5 string
-			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(contact.Email)
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/contactsForm.templ`, Line: 139, Col: 27}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "</td><td class=\"px-6 py-3 text-center text-gray-300\">")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var6 string
-			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(contact.Age)
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/contactsForm.templ`, Line: 141, Col: 72}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "</td><td class=\"px-6 py-3 text-center space-x-2\"><!-- 🔵 EDIT BUTTON --><button hx-post=\"/updateContact\" hx-include=\"#contact-form\" hx-vals=\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var7 string
-			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(`{"id":"` + strconv.FormatUint(contact.ID, 10) + `"}`)
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/contactsForm.templ`, Line: 147, Col: 76}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "\" hx-confirm=\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var8 string
-			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs("⚠️ Are you sure you want to update " + strconv.FormatUint(contact.ID, 10) + " - " + contact.FirstName + " " + contact.LastName + "?")
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/contactsForm.templ`, Line: 148, Col: 163}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "\" hx-target=\"#result\" hx-on::after-request=\"htmx.trigger('body', 'contactsUpdated')\" hx-swap-obb=\"true\" class=\"px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 shadow-md\" title=\"Fill in the fields above that you want to update, then click Edit\">Edit</button><!-- 🔴 DELETE BUTTON --><button hx-post=\"/deleteContact\" hx-swap=\"innerHTML\" hx-target=\"#result\" hx-confirm=\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var9 string
-			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs("⚠️ Are you sure you want to delete " + strconv.FormatUint(contact.ID, 10) + " - " + contact.FirstName + " " + contact.LastName + "?")
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/contactsForm.templ`, Line: 162, Col: 163}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "\" hx-vals=\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var10 string
-			templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(`{"id":"` + strconv.FormatUint(contact.ID, 10) + `"}`)
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/contactsForm.templ`, Line: 163, Col: 76}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "\" hx-on::after-request=\"htmx.trigger('body', 'contactsUpdated')\" hx-swap-obb=\"true\" class=\"px-3 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700 transition duration-200 shadow-md\">Delete</button></td></tr>")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<body class=\"bg-gray-900 min-h-screen py-8 px-4\"><a href=\"/\" class=\"fixed top-6 left-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 flex items-center gap-2\"><img src=\"/static/icons/home.png\" alt=\"Home\" class=\"w-6 h-6\"> Home</a><div class=\"max-w-6xl mx-auto\"><h1 class=\"text-4xl font-bold text-white text-center mb-8\">System Contacts Management</h1><!-- ✅ ADD CONTACT FORM --><div class=\"bg-gray-800 rounded-lg shadow-xl p-6 mb-6 border border-gray-700\"><form hx-post=\"/addContact\" hx-indicator=\"#spinner-add\" class=\"space-y-4\" id=\"contact-form\" hx-on::after-request=\"this.reset()\"><div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\"><input type=\"text\" name=\"firstName\" placeholder=\"First Name\" required class=\"px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-center text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent\"> <input type=\"text\" name=\"lastName\" placeholder=\"Last Name\" required class=\"px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-center text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent\"> <input type=\"email\" name=\"email\" placeholder=\"Email\" required class=\"px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-center text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent\"> <input type=\"number\" name=\"age\" min=\"18\" max=\"120\" placeholder=\"Age\" required class=\"px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-center text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent\"></div><button type=\"button\" hx-post=\"/addContact\" hx-swap=\"innerHTML\" hx-target=\"#result\" hx-on::after-request=\"htmx.trigger('body', 'contactsUpdated')\" class=\"w-full md:w-auto px-6 py-2 bg-green-600 text-white font-semibold text-center rounded-lg hover:bg-green-700 transition duration-200 mx-auto block shadow-lg\">Add Contact</button><div id=\"spinner-add\" class=\"htmx-indicator text-blue-400 font-medium\">Processing...</div></form></div><div class=\"text-center text-gray-400 mb-4\"><input hx-post=\"/searchedContacts\" hx-trigger=\"keyup changed delay:500ms\" type=\"text\" name=\"searchTerm\" hx-target=\"#list-contacts\" class=\"text-gray-300 bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-center w-full md:w-1/2 lg:w-1/3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent\" placeholder=\"Search Contacts...\"></div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "</tbody></table></div></div><div id=\"result\"></div></div></div></body></html>")
+		templ_7745c5c3_Err = ListSearchedContacts(contacts).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</div></body>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

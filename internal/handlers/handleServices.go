@@ -7,11 +7,11 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func Services(app *fiber.App) {
+func Services(title, iconPath string, app *fiber.App) {
 	// Handle GET request - serve the services page
 	app.Get("/services", func(c *fiber.Ctx) error {
 		c.Set("Content-Type", "text/html")
-		component := components.Services()
+		component := components.Services(title, iconPath)
 		if err := component.Render(c.Context(), c); err != nil {
 			log.Printf("Error executing template: %v", err)
 			return c.SendString(`

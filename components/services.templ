@@ -1,26 +1,17 @@
 package components
 
-templ Services() {
-	<!DOCTYPE html>
-	<html lang="en">
-		<head>
-			<meta charset="UTF-8"/>
-			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-			<title>Services</title>
-			<link href="/static/css/output.css" rel="stylesheet"/>
-			<link href="/static/icons/services.png" rel="icon" type="image/x-icon"/>
-		</head>
-		<body
-			class="bg-linear-to-br from-slate-950 via-slate-900 to-slate-950 min-h-screen flex items-center justify-center p-6"
-			style="font-family: 'Inter', sans-serif"
+templ Services(title, iconPath string) {
+	@Base(title, iconPath)
+	<body
+		class="bg-linear-to-br from-slate-950 via-slate-900 to-slate-950 min-h-screen flex items-center justify-center p-6"
+		style="font-family: 'Inter', sans-serif"
+	>
+		<a
+			href="/"
+			class="fixed top-6 left-6 bg-linear-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/20 hover:scale-105 flex items-center gap-2 backdrop-blur-sm"
 		>
-			<a
-				href="/"
-				class="fixed top-6 left-6 bg-linear-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/20 hover:scale-105 flex items-center gap-2 backdrop-blur-sm"
-			>
-				<img src="/static/icons/home.png" alt="Home" class="w-5 h-5"/>
-				Home
-			</a>
-		</body>
-	</html>
+			<img src="/static/icons/home.png" alt="Home" class="w-5 h-5"/>
+			Home
+		</a>
+	</body>
 }

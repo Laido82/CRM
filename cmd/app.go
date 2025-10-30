@@ -45,20 +45,20 @@ func main() {
 	app := fiber.New()
 
 	// Serve static file
-	filepathAbs, err := controllers.GetAbsPath("../static")
+	filepathAbs, err := controllers.GetAbsPath("/static")
 	if err != nil {
 		log.Fatal("Error getting absolute path for static files:", err)
 	}
-	app.Static("/static", filepathAbs)
+	app.Static("/static", ".."+filepathAbs)
 
 	// Define route handlers
-	handlers.Menu(app)
-	handlers.AddContact(app, db)
-	handlers.UpdateContact(app, db)
-	handlers.DeleteContact(app, db)
-	handlers.Services(app)
-	handlers.About(app)
-	handlers.GetAllContacts(app, db)
+	handlers.Menu("Menu", filepathAbs+"/icons/home.png", app)
+	handlers.AddContact("Contacts", filepathAbs+"/icons/contacts.png", app, db)
+	handlers.UpdateContact("Contacts", filepathAbs+"/icons/contacts.png", app, db)
+	handlers.DeleteContact("Contacts", filepathAbs+"/icons/contacts.png", app, db)
+	handlers.Services("Services", filepathAbs+"/icons/services.png", app)
+	handlers.About("About", filepathAbs+"/icons/about.png", app)
+	handlers.GetAllContacts("Contacts", filepathAbs+"/icons/contacts.png", app, db)
 	handlers.ListSearchedContacts(app, db)
 	handlers.ListAllContactsUpdated(app, db)
 	handlers.Logout(app)

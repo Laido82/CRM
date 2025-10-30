@@ -7,10 +7,10 @@ import (
 )
 
 // Menu handler to render the menu page
-func Menu(app *fiber.App) {
+func Menu(title, iconPath string, app *fiber.App) {
 	app.Get("/", func(c *fiber.Ctx) error {
 		c.Set("Content-Type", "text/html")
-		component := components.Menu()
+		component := components.Menu(title, iconPath)
 		if err := component.Render(c.Context(), c); err != nil {
 			return c.Status(fiber.StatusInternalServerError).SendString(`
 				<div id="result" 

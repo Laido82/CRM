@@ -13,7 +13,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func AddContact(app *fiber.App, db *sql.DB) {
+func AddContact(title, iconPath string, app *fiber.App, db *sql.DB) {
 	// Handle GET request - serve the form
 	app.Get("/addContact", func(c *fiber.Ctx) error {
 		c.Set("Content-Type", "text/html")
@@ -23,7 +23,7 @@ func AddContact(app *fiber.App, db *sql.DB) {
 			log.Printf("Error getting contacts: %v", err)
 			return fiber.NewError(fiber.StatusInternalServerError, "Internal Server Error")
 		}
-		component := components.ContactsForm(contacts)
+		component := components.ContactsForm(title, iconPath, contacts)
 		if err := component.Render(c.Context(), c); err != nil {
 			log.Printf("Error executing template: %v", err)
 			return c.SendString(`
