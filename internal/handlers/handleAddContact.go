@@ -3,7 +3,6 @@ package handlers
 import (
 	"database/sql"
 	"log"
-	"main/components"
 	"main/internal/controllers"
 	"main/internal/validators"
 	"strings"
@@ -14,29 +13,6 @@ import (
 )
 
 func AddContact(title, iconPath string, app *fiber.App, db *sql.DB) {
-	// Handle GET request - serve the form
-	app.Get("/addContact", func(c *fiber.Ctx) error {
-		c.Set("Content-Type", "text/html")
-		// Get contacts data
-		contacts, err := controllers.GetAllContacts(db)
-		if err != nil {
-			log.Printf("Error getting contacts: %v", err)
-			return fiber.NewError(fiber.StatusInternalServerError, "Internal Server Error")
-		}
-		component := components.ContactsForm(title, iconPath, contacts)
-		if err := component.Render(c.Context(), c); err != nil {
-			log.Printf("Error executing template: %v", err)
-			return c.SendString(`
-					<div id="result" 
-						 class="fixed bottom-5 right-5 bg-red-600 text-white px-4 py-2 rounded-lg shadow-lg popup" 
-						 hx-swap-oob="true">
-					 ❌ Failed to render page. Please try again.
-					</div>
-				`)
-		}
-
-		return nil
-	})
 
 	// Handle POST request - process form submission
 	app.Post("/addContact", func(c *fiber.Ctx) error {

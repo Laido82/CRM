@@ -13,7 +13,7 @@ templ ListSearchedContacts(contacts []models.Contact) {
 		<div
 			id="list-contacts"
 			hx-trigger="contactsUpdated from:body"
-			hx-get="/listAllContactsUpdated"
+			hx-get="/listSearchedContacts"
 			hx-swap="innerHTML"
 		>
 			<div class="overflow-y-auto max-h-[700px]">
@@ -69,7 +69,6 @@ templ ListSearchedContacts(contacts []models.Contact) {
 										hx-confirm={ "⚠️ Are you sure you want to update " + strconv.FormatUint(contact.ID, 10) + " - " + contact.FirstName + " " + contact.LastName + "?" }
 										hx-target="#result"
 										hx-on::after-request="htmx.trigger('body', 'contactsUpdated')"
-										hx-on::after-request="htmx.trigger('#contact-form', 'formReset')"
 										class="px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 shadow-md"
 										title="Fill in the fields above that you want to update, then click Edit"
 									>
@@ -83,7 +82,6 @@ templ ListSearchedContacts(contacts []models.Contact) {
 										hx-confirm={ "⚠️ Are you sure you want to delete " + strconv.FormatUint(contact.ID, 10) + " - " + contact.FirstName + " " + contact.LastName + "?" }
 										hx-vals={ `{"id":"` + strconv.FormatUint(contact.ID, 10) + `"}` }
 										hx-on::after-request="htmx.trigger('body', 'contactsUpdated')"
-										hx-on::after-request="htmx.trigger('#contact-form', 'formReset')"
 										class="px-3 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700 transition duration-200 shadow-md"
 									>
 										Delete

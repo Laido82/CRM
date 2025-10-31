@@ -34,7 +34,7 @@ func ListSearchedContacts(contacts []models.Contact) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<!-- ✅ CONTACTS TABLE --><div class=\"bg-gray-800 rounded-lg shadow-xl overflow-hidden border border-gray-700\"><div id=\"list-contacts\" hx-trigger=\"contactsUpdated from:body\" hx-get=\"/listAllContactsUpdated\" hx-swap=\"innerHTML\"><div class=\"overflow-y-auto max-h-[700px]\"><table class=\"min-w-full divide-y divide-gray-700\"><thead class=\"bg-gray-900 sticky top-0\"><tr><th class=\"px-4 py-3 text-center text-lg font-medium text-gray-300 uppercase\">ID</th><th class=\"px-4 py-3 text-center text-lg font-medium text-gray-300 uppercase\">First Name</th><th class=\"px-4 py-3 text-center text-lg font-medium text-gray-300 uppercase\">Last Name</th><th class=\"px-4 py-3 text-center text-lg font-medium text-gray-300 uppercase\">Email</th><th class=\"px-4 py-3 text-center text-lg font-medium text-gray-300 uppercase\">Age</th><th class=\"px-4 py-3 text-center text-lg font-medium text-gray-300 uppercase\">Actions</th></tr></thead> <tbody class=\"bg-gray-800 divide-y divide-gray-700\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<!-- ✅ CONTACTS TABLE --><div class=\"bg-gray-800 rounded-lg shadow-xl overflow-hidden border border-gray-700\"><div id=\"list-contacts\" hx-trigger=\"contactsUpdated from:body\" hx-get=\"/listSearchedContacts\" hx-swap=\"innerHTML\"><div class=\"overflow-y-auto max-h-[700px]\"><table class=\"min-w-full divide-y divide-gray-700\"><thead class=\"bg-gray-900 sticky top-0\"><tr><th class=\"px-4 py-3 text-center text-lg font-medium text-gray-300 uppercase\">ID</th><th class=\"px-4 py-3 text-center text-lg font-medium text-gray-300 uppercase\">First Name</th><th class=\"px-4 py-3 text-center text-lg font-medium text-gray-300 uppercase\">Last Name</th><th class=\"px-4 py-3 text-center text-lg font-medium text-gray-300 uppercase\">Email</th><th class=\"px-4 py-3 text-center text-lg font-medium text-gray-300 uppercase\">Age</th><th class=\"px-4 py-3 text-center text-lg font-medium text-gray-300 uppercase\">Actions</th></tr></thead> <tbody class=\"bg-gray-800 divide-y divide-gray-700\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -130,14 +130,14 @@ func ListSearchedContacts(contacts []models.Contact) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "\" hx-target=\"#result\" hx-on::after-request=\"htmx.trigger('body', 'contactsUpdated')\" hx-on::after-request=\"htmx.trigger('#contact-form', 'formReset')\" class=\"px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 shadow-md\" title=\"Fill in the fields above that you want to update, then click Edit\">Edit</button><!-- 🔴 DELETE BUTTON --><button hx-post=\"/deleteContact\" hx-swap=\"innerHTML\" hx-target=\"#result\" hx-confirm=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "\" hx-target=\"#result\" hx-on::after-request=\"htmx.trigger('body', 'contactsUpdated')\" class=\"px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 shadow-md\" title=\"Fill in the fields above that you want to update, then click Edit\">Edit</button><!-- 🔴 DELETE BUTTON --><button hx-post=\"/deleteContact\" hx-swap=\"innerHTML\" hx-target=\"#result\" hx-confirm=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var9 string
 			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs("⚠️ Are you sure you want to delete " + strconv.FormatUint(contact.ID, 10) + " - " + contact.FirstName + " " + contact.LastName + "?")
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/listSearchedContacts.templ`, Line: 83, Col: 160}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/listSearchedContacts.templ`, Line: 82, Col: 160}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 			if templ_7745c5c3_Err != nil {
@@ -150,13 +150,13 @@ func ListSearchedContacts(contacts []models.Contact) templ.Component {
 			var templ_7745c5c3_Var10 string
 			templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(`{"id":"` + strconv.FormatUint(contact.ID, 10) + `"}`)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/listSearchedContacts.templ`, Line: 84, Col: 73}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/listSearchedContacts.templ`, Line: 83, Col: 73}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "\" hx-on::after-request=\"htmx.trigger('body', 'contactsUpdated')\" hx-on::after-request=\"htmx.trigger('#contact-form', 'formReset')\" class=\"px-3 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700 transition duration-200 shadow-md\">Delete</button></td></tr>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "\" hx-on::after-request=\"htmx.trigger('body', 'contactsUpdated')\" class=\"px-3 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700 transition duration-200 shadow-md\">Delete</button></td></tr>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

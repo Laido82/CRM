@@ -39,7 +39,7 @@ func ContactsForm(title, iconPath string, contacts []models.Contact) templ.Compo
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = ListSearchedContacts(contacts).Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = ListAllContactsUpdated(contacts).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -130,14 +130,14 @@ func ListAllContactsUpdated(contacts []models.Contact) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "\" hx-target=\"#result\" hx-on::after-request=\"htmx.trigger('body', 'contactsUpdated')\" hx-on::after-request=\"htmx.trigger('#contact-form', 'formReset')\" class=\"px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 shadow-md\" title=\"Fill in the fields above that you want to update, then click Edit\">Edit</button><!-- 🔴 DELETE BUTTON --><button hx-post=\"/deleteContact\" hx-swap=\"innerHTML\" hx-target=\"#result\" hx-confirm=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "\" hx-target=\"#result\" hx-on::after-request=\"htmx.trigger('body', 'contactsUpdated')\" class=\"px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 shadow-md\" title=\"Fill in the fields above that you want to update, then click Edit\">Edit</button><!-- 🔴 DELETE BUTTON --><button hx-post=\"/deleteContact\" hx-swap=\"innerHTML\" hx-target=\"#result\" hx-confirm=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var9 string
 			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs("⚠️ Are you sure you want to delete " + strconv.FormatUint(contact.ID, 10) + " - " + contact.FirstName + " " + contact.LastName + "?")
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/listAllContactsUpdated.templ`, Line: 83, Col: 160}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/listAllContactsUpdated.templ`, Line: 82, Col: 160}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 			if templ_7745c5c3_Err != nil {
@@ -150,13 +150,13 @@ func ListAllContactsUpdated(contacts []models.Contact) templ.Component {
 			var templ_7745c5c3_Var10 string
 			templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(`{"id":"` + strconv.FormatUint(contact.ID, 10) + `"}`)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/listAllContactsUpdated.templ`, Line: 84, Col: 73}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/listAllContactsUpdated.templ`, Line: 83, Col: 73}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "\" hx-on::after-request=\"htmx.trigger('body', 'contactsUpdated')\" hx-on::after-request=\"htmx.trigger('#contact-form', 'formReset')\" class=\"px-3 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700 transition duration-200 shadow-md\">Delete</button></td></tr>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "\" hx-on::after-request=\"htmx.trigger('body', 'contactsUpdated')\" class=\"px-3 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700 transition duration-200 shadow-md\">Delete</button></td></tr>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
