@@ -1,4 +1,1 @@
-internal/database/*
-internal/backups/*
 cmd/tmp/*
-components/*.templ
